@@ -17,7 +17,7 @@ import max.costa.reto1.models.Usuario;
 import max.costa.reto1.services.UsuarioService;
 
 @Controller
-@RequestMapping(path={"","/"})
+@RequestMapping(value = {"","/"})
 public class HomeController {
 
 	private UsuarioService usuarioService;
@@ -39,7 +39,7 @@ public class HomeController {
 		return "redirect:/login";
 	}
 
-	@GetMapping("/login")
+	@GetMapping(value = {"","/login"})
 	public String mostrarLogin() {
 		return "formLogin";
 	}
