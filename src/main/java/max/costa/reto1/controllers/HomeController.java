@@ -2,6 +2,7 @@ package max.costa.reto1.controllers;
 
 import java.text.ParseException;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,9 @@ public class HomeController {
 	}
 
 	@PostMapping("/signup")
-	public String guardarRegistro(Usuario usuario, RedirectAttributes attributes) throws ParseException {
+	public String guardarRegistro(Usuario usuario, RedirectAttributes attributes) throws ParseException, MessagingException {
 		usuarioService.guardar(usuario);
-		attributes.addFlashAttribute("msgSuccess", "¡Usuario registrado correctamente!");
+		attributes.addFlashAttribute("msgSuccess", "¡Usuario registrado correctamente! La contraseña se envió a: " + usuario.getEmail());
 		return "redirect:/login";
 	}
 

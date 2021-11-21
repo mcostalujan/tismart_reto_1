@@ -12,33 +12,38 @@ import max.costa.reto1.services.PerfilService;
 @Service
 public class PerfilServiceImpl implements PerfilService{
 
-    private PerfilRepository perfilesRepository;
+    private PerfilRepository perfilRepository;
 
     @Autowired
-    public PerfilServiceImpl(PerfilRepository perfilesRepository){
-        this.perfilesRepository = perfilesRepository;
+    public PerfilServiceImpl(PerfilRepository perfilRepository){
+        this.perfilRepository = perfilRepository;
     }
 
     @Override
     public void guardar(Perfil perfil) {
-        this.perfilesRepository.save(perfil);
+        this.perfilRepository.save(perfil);
         
     }
 
     @Override
     public List<Perfil> buscarTodas() {
-        return this.perfilesRepository.findAll();
+        return this.perfilRepository.findAll();
     }
 
     @Override
     public Perfil buscarPorId(Long idPerfil) {
-        return this.perfilesRepository.findByIdPerfil(idPerfil);
+        return this.perfilRepository.findByIdPerfil(idPerfil);
     }
 
     @Override
     public void eliminar(Long idPerfil) {
-        this.perfilesRepository.deleteById(idPerfil);
+        this.perfilRepository.deleteById(idPerfil);
         
+    }
+
+    @Override
+    public Perfil buscarPorNombre(String nombre) {
+        return this.perfilRepository.findByNombre(nombre);
     }
     
 }

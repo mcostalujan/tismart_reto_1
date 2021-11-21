@@ -1,103 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link rel="icon" href="favicon.ico" />
 
-    <title>Reto 1 | Sign up</title>
-    <div th:replace="fragments/bootstrap :: bootstrap-css"></div>
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="icon" href="favicon.ico" />
 
-  <body>
-    <header th:insert="fragments/navbar :: navbar"></header>
+  <title>Reto 1 | Sign up</title>
+  <div th:replace="fragments/bootstrap :: bootstrap-css"></div>
+</head>
 
-    <main role="main">
-      <hr />
-      <div class="container">
-        <div class="card">
-          <h4 class="card-header"><strong>Formulario de registro</strong></h4>
-          <div class="card-body">
-            <form th:action="@{/signup}" th:object="${usuario}" method="post">
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      th:field="*{nombre}"
-                      id="nombre"
-                      name="nombre"
-                      placeholder="Escriba su nombre"
-                      required="required"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="email">Correo electrónico</label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      th:field="*{email}"
-                      id="email"
-                      name="email"
-                      placeholder="Escriba su correo electrónico"
-                      required="required"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="username">Username</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      th:field="*{username}"
-                      id="username"
-                      name="username"
-                      placeholder="Escriba su nombre de usuario"
-                      required="required"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      th:field="*{password}"
-                      id="password"
-                      name="password"
-                      placeholder="Escriba su clave de acceso"
-                      required="required"
-                    />
-                  </div>
-                </div>
+<body>
+  <header th:insert="fragments/navbar :: navbar"></header>
+
+  <main role="main">
+    <hr />
+    <div class="container">
+      <div class="card">
+        <h4 class="card-header" style="display: flex; align-items: center; justify-content: center;"><strong>Formulario de registro</strong></h4>
+        <div class="card-body">
+          <form class="form-signin" th:action="@{/signup}" th:object="${usuario}" method="post">
+            <div class="col-md-4" style="margin-right: auto; margin-left: auto;">
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" th:field="*{nombre}" id="nombre" name="nombre"
+                  placeholder="Escriba su nombre" required="required" />
               </div>
-              <hr />
-              <button
-                type="submit"
-                title="Quiero registrarme."
-                class="btn btn-primary"
-              >
+              <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" class="form-control" th:field="*{email}" id="email" name="email"
+                  placeholder="Escriba su correo electrónico" required="required" />
+              </div>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" th:field="*{username}" id="username" name="username"
+                  placeholder="Escriba su nombre de usuario" required="required" />
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center;">
+              <button type="submit" title="Quiero registrarme." class="btn btn-primary">
                 Registrarse
               </button>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
-      <!-- /container -->
-    </main>
+    </div>
+    <!-- /container -->
+  </main>
 
-    <footer class="footer" th:insert="fragments/footer :: footer"></footer>
-    <div th:replace="fragments/bootstrap :: bootstrap-js"></div>
-  </body>
+  <footer class="footer" th:insert="fragments/footer :: footer"></footer>
+  <div th:replace="fragments/bootstrap :: bootstrap-js"></div>
+</body>
+
 </html>
