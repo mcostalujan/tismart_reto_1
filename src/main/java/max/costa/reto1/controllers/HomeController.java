@@ -35,7 +35,7 @@ public class HomeController {
 	@PostMapping("/signup")
 	public String guardarRegistro(Usuario usuario, RedirectAttributes attributes) throws ParseException, MessagingException {
 		usuarioService.guardar(usuario);
-		attributes.addFlashAttribute("msgSuccess", "¡Usuario registrado correctamente! La contraseña se envió a: " + usuario.getEmail());
+		attributes.addFlashAttribute("msgSuccess", "¡Usuario registrado correctamente!");
 		return "redirect:/login";
 	}
 

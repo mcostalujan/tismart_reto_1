@@ -35,13 +35,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	public void guardar(Usuario usuario) throws ParseException, MessagingException {
-		String password = generatePassword();
+		// String password = generatePassword();
+		String password =  usuario.getPassword();
 		String pwdEncriptado = this.passwordEncoder.encode(password);
 		usuario.setPassword(pwdEncriptado);
 		usuario.setEstatus(1);
 		usuario.setFechaRegistro(this.utility.obtenerFechaActual());
 		usuario.agregar(this.perfilService.buscarPorNombre("USUARIO"));
-		emailService.sendNewPasswordEmail(usuario.getNombre(),password,usuario.getEmail());
+		// emailService.sendNewPasswordEmail(usuario.getNombre(),password,usuario.getEmail());
 		this.usuariosRepository.save(usuario);
 	}
 
