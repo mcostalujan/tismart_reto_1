@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="icon" href="favicon.ico" />
+  <title>Reto 1 | Lista hospitales</title>
+  <div th:replace="fragments/bootstrap :: bootstrap-css"></div>
+  <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+  <header th:insert="fragments/navbar :: navbar"></header>
+
+  <main role="main">
+    <hr />
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-header" style="display: flex; align-items: center; justify-content: center;">
+            <strong>Listado de Hospitales</strong>
+          </h4>
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-12">
+              <form th:action="@{/hospitales/index}" method="get">
+                <label><strong>FILTRAR POR: </strong></label>
+                <input type="radio" name="searchBy" value="id" style="margin-left: 30px;"/>
+                <label>ID</label>
+                <input type="radio" name="searchBy" value="sede" style="margin-left: 30px;" />
+                <label>Sede</label>
+                <input hidden class="id selected" name="idKeyword" id="idKeyword" type="number"
+                  placeholder="Ingrese ID de hospital" style="margin-left: 30px;">
+                <select hidden class="sede selected" name=sedeKeyword id="sedeKeyword"
+                  style="width: 200px;margin-left: 30px;">
+                  <option th:each="sede : ${sedes}" th:value="${sede.nombre}" th:text="${sede.nombre}"></option>
+                </select>
+                <button class="btn btn-warning" style="margin-left: 30px;" type="submit">Buscar</button>
+                <a class="btn btn-info" th:href="@{/hospitales/index}" style="margin-left: 30px; color: white; cursor: pointer;">Limpiar Filtros</a>
+              </form>
+            </div>
+          </div>
+          <hr />
+          <div th:if="${msgSuccess != null}" class="alert alert-success" th:text="${msgSuccess}" role="alert"></div>
+          <div th:if="${msgError != null}" class="alert alert-danger" th:text="${msgError}" role="alert"></div>
+          <div th:if="${customMessage != null}" class="alert alert-success" th:text="${customMessage}" role="alert"></div>
+
+          <table class="table table-hover">
+            <caption hidden>Tabla de hospitales</caption>
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Antiguedad (Años)</th>
+                <th scope="col">Distrito</th>
+                <th scope="col">Sede</th>
+                <th scope="col">Gerente</th>
+                <th scope="col">Condicion</th>
+                <th scope="col">Fecha Registro</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="hospital : ${hospitales}">
+                <td th:text="${hospital.idHospital}"></td>
+                <td th:text="${hospital.nombre}"></td>
+                <td th:text="${hospital.antiguedad}"></td>
+                <td th:text="${hospital.distrito.nombre}"></td>
+                <td th:text="${hospital.sede.nombre}"></td>
+                <td th:text="${hospital.gerente.nombre}"></td>
+                <td th:text="${hospital.condicion.nombre}"></td>
+                <td th:text="${#dates.format(hospital.fechaRegistro, 'dd-MM-yyyy')}"></td>
+                <td>
+                  <a th:href="@{/hospitales/delete/{id}  (id=${hospital.idHospital})   }"
+                    onclick="return confirm('¿Estas seguro de eliminar el hospital indicado?')"
+                    class="btn btn-danger btn-sm" role="button" title="Eliminar el registro de hospital."><i
+                      class="fas fa-trash" aria-hidden="true"></i></a>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td><strong>Total: </strong></td>
+                <td th:text="${#lists.size(hospitales)}"></td>
+              </tr>
+            </tfoot>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  <br>
+  <footer class="footer" th:insert="fragments/footer :: footer"></footer>
+  <div th:replace="fragments/bootstrap :: bootstrap-js"></div>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('input[type="radio"]').click(function () {
+        var inputValue = $(this).attr("value");
+        var targetBox = $("." + inputValue);
+        $(".selected").not(targetBox).hide();
+        $(targetBox).show();
+        $(targetBox).attr("hidden",false);
+      });
+    });
+  </script>
+</body>
+
+</html>

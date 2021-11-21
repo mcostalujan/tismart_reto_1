@@ -24,7 +24,7 @@ public class Provincia {
 	@Column(unique = true, nullable = false)
     @Getter @Setter private Long idProvincia;
     
-    @Getter @Setter private String descuentoProvincia;
+    @Getter @Setter private String nombre;
     @Getter @Setter private Date fechaRegistro;
 
     

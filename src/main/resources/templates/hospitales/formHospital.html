@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="icon" href="favicon.ico" />
+  <title th:if="${editHospitalFlag==false}">Reto 1 | Ingresar Hospital</title>
+  <title th:if="${editHospitalFlag==true}">Reto 1 | Modificar Hospital</title>
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+  <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+  <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <header th:insert="fragments/navbar :: navbar"></header>
+
+
+
+  <main role="main">
+    <hr>
+    <div class="container">
+
+
+
+      <div class="card">
+        <h4 class="card-header" th:if="${editHospitalFlag==false}"><strong>Registrar Hospital</strong></h4>
+        <h4 class="card-header" th:if="${editHospitalFlag==true}"><strong>Modificar Hospital</strong></h4>
+        <div class="card-body">
+
+          <div class="row" th:if="${editHospitalFlag==true}" style="margin-bottom: 25px;">
+            <div class="col-12">
+              <form th:action="@{/hospitales/edit}" method="get">
+                <label for="id"><strong>ID</strong></label>
+                <input id="txtSearch" type="number" name="id" style="margin-left: 10px;" required>
+                <button class="btn btn-warning" style="margin-left: 10px;" type="submit">Buscar</button>
+              </form>
+            </div>
+          </div>
+          <hr th:if="${editHospitalFlag==true}">
+          <form autocomplete="off" th:action="@{/hospitales/save}" method="post" th:object="${hospital}">
+
+            <div th:if="${msgSuccess != null}" class="alert alert-success" th:text="${msgSuccess}" role="alert"></div>
+            <div th:if="${msgError != null}" class="alert alert-danger" th:text="${msgError}" role="alert"></div>
+
+            <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role='alert'>
+              Por favor corrija los siguientes errores:
+              <ul>
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+              </ul>
+            </div>
+
+
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="nombre"><strong>Nombre</strong></label>
+                  <input type="hidden" th:field="*{idHospital}" name="idHospital">
+                  <input type="text" class="form-control" th:field="*{nombre}" name="nombre"
+                    placeholder="Nombre del hospital">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="antiguedad"><strong>Antiguedad</strong></label>
+                  <input type="number" min="0" class="form-control" th:field="*{antiguedad}" name="antiguedad"
+                    placeholder="Años de antiguedad">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="area"><strong>Área</strong></label>
+                  <input type="number" min="0" step="0.01" class="form-control" th:field="*{area}" name="area"
+                    placeholder="Área">
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="fechaRegistro"><strong>Fecha de Registro</strong></label>
+                  <input type="date" class="form-control" th:field="*{fechaRegistro}" name="fechaRegistro"
+                    placeholder="Fecha de registro">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="distrito"><strong>Distrito</strong></label>
+                  <select class="form-control" th:field="*{idDistrito}">
+                    <option th:value="0" text="Please Select"></option>
+                    <option th:each="distrito : ${distritos}" th:value="${distrito.idDistrito}"
+                      th:text="${distrito.nombre}"></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="sede"><strong>Sede</strong></label>
+                  <select class="form-control" th:field="*{idSede}">
+                    <option th:value="0" text="Please Select"></option>
+                    <option th:each="sede : ${sedes}" th:value="${sede.idSede}" th:text="${sede.nombre}"></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="condicion"><strong>Condición</strong></label>
+                  <select class="form-control" th:field="*{idCondicion}">
+                    <option th:value="0" text="Please Select"></option>
+                    <option th:each="condicion : ${condiciones}" th:value="${condicion.idCondicion}"
+                      th:text="${condicion.nombre}"></option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="gerente"><strong>Gerente</strong></label>
+                  <select class="form-control" th:field="*{idGerente}">
+                    <option th:value="0" text="Please Select"></option>
+                    <option th:each="gerente : ${gerentes}" th:value="${gerente.idGerente}" th:text="${gerente.nombre}">
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+
+        </div>
+        <hr>
+        <div th:if="${guardarButtonHabilitado==true}"
+          style="display: flex; align-items: center; justify-content: center;">
+          <button type="submit" class="btn btn-success" style="margin-bottom: 15px;">Guardar</button>
+        </div>
+
+        </form>
+      </div>
+    </div>
+    </div>
+
+  </main>
+
+  <footer class="footer" th:insert="fragments/footer :: footer"></footer>
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+  <script th:src="@{/tinymce/tinymce.min.js}"></script>
+</body>
+
+</body>
+
+</html>

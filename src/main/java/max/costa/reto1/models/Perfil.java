@@ -1,6 +1,5 @@
 package max.costa.reto1.models;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,19 +12,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@Table(name = "condicion")
 @Entity
+@Table(name = "perfil")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Condicion {
-    @Id
+@ToString
+public class Perfil {
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-    @Getter @Setter private Long idCondicion;
-    
-    
-    @Getter @Setter private String nombre;
-    @Getter @Setter private Date fechaRegistro;
+	@Getter @Setter Long idPerfil;
+	@Getter @Setter String nombre;
+
 
 }

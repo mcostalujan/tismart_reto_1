@@ -24,7 +24,7 @@ public class Gerente {
 	@Column(unique = true, nullable = false)
     @Getter @Setter private Long idGerente;
     
-    @Getter @Setter private String descuentoDistrito;
+    @Getter @Setter private String nombre;
     @Getter @Setter private Date fechaRegistro;
     
 

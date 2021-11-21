@@ -24,7 +24,7 @@ public class Sede {
 	@Column(unique = true, nullable = false)
     @Getter @Setter private Long idSede;
     
-    @Getter @Setter private String descuentoSede;
+    @Getter @Setter private String nombre;
     @Getter @Setter private Date fechaRegistro;
 
     
